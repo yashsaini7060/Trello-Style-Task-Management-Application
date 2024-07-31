@@ -59,7 +59,7 @@ function Signin() {
     console.log(res)
     
     // redirect to home page if true
-    if (res.payload.success) navigate("/");
+    if (res.payload.success) navigate("/dashboard");
 
     // clearing the signup inputs
     setSignInData({
