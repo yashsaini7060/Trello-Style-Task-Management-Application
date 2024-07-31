@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:5041/api/v1"
+const BASE_URL = "https://trello-style-task-management-application-vz8a.onrender.com/api/v1"
 
 const axiosInstance = axios.create();
 
