@@ -69,9 +69,9 @@ function SignUp() {
     // // calling create account action
     // console.log(formData)
     const res = await dispatch(createAccount(signupData));
-    
+    console.log(res)
     // redirect to login page if true
-    if (res.payload.success) navigate("/login");
+    if (res.payload.success) navigate("/signin");
 
     // clearing the signup inputs
     setSignupData({
@@ -142,8 +142,8 @@ function SignUp() {
 
           <p className="text-center">
             Already have an account ?{" "}
-            <Link to={"/login"} className="link text-accent cursor-pointer">
-              <span className="text-blue-600">Login</span>
+            <Link to={"/signin"} className="link text-accent cursor-pointer">
+              <span className="text-blue-600">Signin</span>
             </Link>
           </p>
         </form>

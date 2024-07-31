@@ -6,11 +6,11 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { login } from "../redux/slices/authSlice";
 
-function Login() {
+function Signin() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [logInData, setLogInData] = useState({
+  const [signInData, setSignInData] = useState({
     email: "",
     password: "",
   });
@@ -18,8 +18,8 @@ function Login() {
   // function to set the signup data
   const handleUserInput = (event) => {
     const { name, value } = event.target;
-    setLogInData({
-      ...logInData,
+    setSignInData({
+      ...signInData,
       [name]: value,
     });
   };
@@ -30,8 +30,8 @@ function Login() {
 
     // checking the empty fields
     if (
-      !logInData.email ||
-      !logInData.password
+      !signInData.email ||
+      !signInData.password
     ) {
       toast.error("Please fill all the fields");
       return;
@@ -39,36 +39,30 @@ function Login() {
 
 
     // email validation using regex
-    if (
-      !logInData.email.match(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/)
+    if (!signInData.email.match(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/)
     ) {
       toast.error("Invalid email id");
       return;
     }
 
     // password validation using regex
-    if (!logInData.password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}$/)) {
+    if (!signInData.password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}$/)) {
       toast.error(
         "Minimum password length should be 8 with Uppercase, Lowercase, Number and Symbol"
       );
       return;
     }
 
-    // // creating the form data from the existing data
-    // const formData = new FormData();
-    // formData.append("fullName", logInData.fullName);
-    // formData.append("email", logInData.email);
-    // formData.append("password", logInData.password);
 
     // calling create account action
-    console.log(logInData)
-    const res = await dispatch(login(logInData));
+    const res = await dispatch(login(signInData));
+    console.log(res)
     
-    // redirect to login page if true
-    if (res.payload.success) navigate("/login");
+    // redirect to home page if true
+    if (res.payload.success) navigate("/");
 
     // clearing the signup inputs
-    setLogInData({
+    setSignInData({
       email: "",
       password: "",
     });
@@ -91,7 +85,7 @@ function Login() {
               id="email"
               placeholder="Enter your email"
               className="bg-transparent px-2 py-1 border"
-              value={logInData.email}
+              value={signInData.email}
               onChange={handleUserInput}
             />
           </div>
@@ -106,7 +100,7 @@ function Login() {
               id="password"
               placeholder="Enter your password"
               className="bg-transparent px-2 py-1 border"
-              value={logInData.password}
+              value={signInData.password}
               onChange={handleUserInput}
             />
           </div>
@@ -116,7 +110,7 @@ function Login() {
             className="w-full bg-[#4B36CC] transition-all ease-in-out duration-300 rounded-lg py-2 font-semibold text-lg text-white cursor-pointer"
             type="submit"
           >
-            Sign up
+            Signin
           </button>
 
           <p className="text-center">
@@ -130,4 +124,4 @@ function Login() {
   )
 }
 
-export default Login
+export default Signin;
