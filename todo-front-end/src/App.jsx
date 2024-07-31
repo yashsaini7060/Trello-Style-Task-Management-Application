@@ -1,16 +1,15 @@
-import { useEffect } from "react"
-import { toast } from "react-hot-toast"
+import { Route,Routes } from "react-router-dom";
+
+import Login from "./Pages/Login";
+import NotFound from "./Pages/NotFound";
+import Signup from "./Pages/Signup";
 function App() {
-  useEffect(() => {
-    toast.error("hello")
-    console.log("toast not working")
-  })
-  return (
-    <>
-      <h1 className="text-3xl font-bold underline">
-    Hello world!
-  </h1>
-    </>
+  return ( 
+    <Routes>
+      <Route path="/signup" element={<Signup />} />
+      <Route path="login" element={<Login />} />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
   )
 }
 

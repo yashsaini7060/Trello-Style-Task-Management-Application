@@ -21,7 +21,7 @@ const cookieOptions = {
 export const registerUser = asyncHandler(async (req, res, next) => {
   // Destructuring the necessary data from req object
   const { fullName, email, password } = req.body;
-  console.log(fullName)
+  console.log(req.body)
   // Check if the data is there or not, if not throw error message
   if (!fullName || !email || !password) {
     return next(new AppError('All fields are required', 400));
@@ -81,7 +81,7 @@ export const registerUser = asyncHandler(async (req, res, next) => {
 export const loginUser = asyncHandler(async (req, res, next) => {
   // Destructuring the necessary data from req object
   const { email, password } = req.body;
-
+  console.log(req.body)
   // Check if the data is there or not, if not throw error message
   if (!email || !password) {
     return next(new AppError('Email and Password are required', 400));
