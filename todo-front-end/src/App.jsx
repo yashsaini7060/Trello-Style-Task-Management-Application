@@ -2,7 +2,7 @@ import { Route,Routes } from "react-router-dom";
 
 import RequireAuth from "./components/Auth/RequireAuth";
 import Dashboard from "./Pages/Dashboard";
-import Home from "./Pages/Home";
+// import Home from "./Pages/Home";
 import NotFound from "./Pages/NotFound";
 import Signin from "./Pages/Signin";
 import Signup from "./Pages/Signup";
