@@ -1,5 +1,6 @@
 import asyncHandler from "../middlewares/asyncHandler.middleware.js";
 import Task from '../models/task.model.js'
+import AppError from '../utils/appError.js';
 
 
 export const getAllTasks = asyncHandler( async (req, res, next) => {
