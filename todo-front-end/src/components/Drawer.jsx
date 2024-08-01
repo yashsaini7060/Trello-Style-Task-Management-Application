@@ -1,4 +1,7 @@
 import { useState } from "react";
+import { toast } from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import Calender from "../assets/Calender.png";
 import Close from "../assets/Close.png";
@@ -8,14 +11,18 @@ import Priority from "../assets/Priority.png";
 import Resize from "../assets/Resize.png";
 import Share from "../assets/Shareicon.png";
 import Star from "../assets/Star.png";
+import { createTask } from "../redux/slices/taskSlice";
 // import Status from "../assets/Status.png";
 // eslint-disable-next-line react/prop-types
 function Drawer({ isOpen, onClose }) {
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     title: "",
     status: "Todo",
     priority: "Low",
-    date: "",
+    deadline: "",
     description: "",
   });
 
@@ -27,9 +34,39 @@ function Drawer({ isOpen, onClose }) {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     console.log(formData); // Handle form submission, e.g., send data to server
+
+
+    if (
+      !formData.title ||
+      !formData.status ||
+      !formData.priority ||
+      !formData.deadline ||
+      !formData.description
+    ) {
+      toast.error("Please fill all the fields");
+      return;
+    }
+
+    // calling create account action
+    const res = await dispatch(createTask(formData));
+    console.log(res)
+
+    // redirect to home page if true
+    if (res.payload.success) navigate("/dashboard");
+
+    // clearing the signup inputs
+    setFormData({
+      title: "",
+      status: "Todo",
+      priority: "Low",
+      deadline: "",
+      description: "",
+    });
+
+
   };
   return (
     <div
@@ -112,16 +149,16 @@ function Drawer({ isOpen, onClose }) {
           <div className="flex items-center mb-4 h-12">
             <img src={Calender} alt="" className="w-6 h-6 appearance-none" />
             <label
-              htmlFor="date"
+              htmlFor="deadline"
               className="block text-md font-medium ml-5 text-gray-700  w-[150px]"
             >
-              Date
+              Deadline
             </label>
             <input
               type="date"
-              id="date"
+              id="deadline"
               className="mt-1  p-2  rounded-md"
-              value={formData.date}
+              value={formData.deadline}
               onChange={handleChange}
             />
           </div>

@@ -25,9 +25,9 @@ export const getAllTasks = asyncHandler( async (req, res, next) => {
 
 
 export const createTask = asyncHandler( async (req, res, next) => {
-
   console.log("here")
-  const{title, descripion, status, priority, deadline} = req.body
+  console.log(req.body)
+  const{title, description, status, priority, deadline} = req.body
 
   const userId = req.user.id;
   
@@ -37,7 +37,7 @@ export const createTask = asyncHandler( async (req, res, next) => {
 
   const task = await Task.create({
     title,
-    descripion,
+    description,
     status,
     priority,
     deadline,

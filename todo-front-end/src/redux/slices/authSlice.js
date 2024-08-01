@@ -9,7 +9,7 @@ const initialState = {
 }
 
 
-export const createAccount = createAsyncThunk("/auth/signup" , async(data) => {
+export const createAccount = createAsyncThunk("auth/signup" , async(data) => {
 
   try {
     const response = axiosInstance.post("user/register", data);
@@ -77,10 +77,9 @@ const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
     .addCase(login.fulfilled, (state, action) => {
-      console.log(action)
 
 
-      localStorage.setItem("data", JSON.stringify(action?.payload?.data));
+      localStorage.setItem("data", JSON.stringify(action?.payload));
       localStorage.setItem("isLoggedIn", true);
       state.isLoggedIn = true;
       state.data = action.payload;

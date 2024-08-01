@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -23,10 +23,12 @@ import Teams from "../assets/teams.png";
 import Column from "../components/Column";
 import Drawer from "../components/Drawer";
 import { logout } from "../redux/slices/authSlice";
+import { getAllTasks } from '../redux/slices/taskSlice';
 function Dashboard() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const [cards, setCards]= useState([]);
   async function onLogout(e) {
     e.preventDefault();
     await dispatch(logout());
@@ -38,6 +40,16 @@ function Dashboard() {
   const toggleDrawer = () => {
     setIsDrawerOpen(!isDrawerOpen);
   };
+  const getTasks= async () => {
+    const res = await dispatch(getAllTasks());
+    setCards(res?.payload?.data?.tasks)
+  }
+
+  useEffect(() => {
+      getTasks();
+  },[])
+
+
   return (
     <>
       <div className="flex h-[100vh]">
@@ -148,14 +160,14 @@ function Dashboard() {
             <div className="flex bg-white p-4 mt-4 justify-between">
               <Column
                 title="Todo"
-                coloumn="todo"
+                cards={cards}
                 // cards={}
                 // setCards={setCards}
               />
-              <Column title="In Progress" coloumn="Inprogress" />
+              <Column title="In Progress" cards={cards} />
 
-              <Column title="Under Review" coloumn="Underreview" />
-              <Column title="Finished" coloumn="Finished" />
+              <Column title="Under Review"  cards={cards} />
+              <Column title="Finished"   cards={cards}/>
             </div>
           </div>
         </div>
