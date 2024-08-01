@@ -30,6 +30,7 @@ app.use(
     optionsSuccessStatus: 200, // Some legacy browsers choke on 204
   })
 );
+
 app.use(morgan('dev'));
 app.use(cookieParser());
 

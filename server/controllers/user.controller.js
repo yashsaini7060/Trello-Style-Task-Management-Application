@@ -3,17 +3,15 @@ import AppError from '../utils/appError.js';
 import User from '../models/user.model.js';
 
 const cookieOptions = {
-  httpOnly: false,
+  domain: process.env.FRONTEND_URL,
+  path: '/',
+  secure: true,
   maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-  path: "/",
-  sameSite: "None",
-  secure: false,
+  sameSite: false,
+  httpOnly: false,
 };
 
-
-  // secure: process.env.NODE_ENV === 'production' ? true : false,
-  // maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-  // httpOnly: false,
+console.log(cookieOptions.domain)
 
 
 
@@ -70,6 +68,7 @@ export const registerUser = asyncHandler(async (req, res, next) => {
     success: true,
     message: 'User registered successfully',
     user,
+    token
   });
 });
 
