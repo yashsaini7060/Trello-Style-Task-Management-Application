@@ -24,10 +24,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
     origin: process.env.FRONTEND_URL, // The URL of your frontend
+    credentials: true, // Allow credentials (cookies, authorization headers)
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Allowed methods
     allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
-    credentials: true, // Allow credentials (cookies, authorization headers)
-    optionsSuccessStatus: 200, // Some legacy browsers choke on 204
+    optionsSuccessStatus: 204, // Some legacy browsers choke on 204
   })
 );
 
