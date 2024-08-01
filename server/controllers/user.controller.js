@@ -3,11 +3,11 @@ import AppError from '../utils/appError.js';
 import User from '../models/user.model.js';
 
 const cookieOptions = {
-  httpOnly: true,
+  httpOnly: false,
   maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
   path: "/",
   sameSite: "None",
-  secure: process.env.NODE_ENV === "production" ? true : false,
+  secure: false,
 };
 
 

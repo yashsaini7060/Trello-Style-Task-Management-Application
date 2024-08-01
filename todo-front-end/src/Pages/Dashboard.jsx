@@ -40,6 +40,8 @@ function Dashboard() {
   const toggleDrawer = () => {
     setIsDrawerOpen(!isDrawerOpen);
   };
+
+  
   const getTasks= async () => {
     const res = await dispatch(getAllTasks());
     setCards(res?.payload?.data?.tasks)
