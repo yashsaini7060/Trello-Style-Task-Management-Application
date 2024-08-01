@@ -25,7 +25,7 @@ app.use(
   cors({
     // origin: '*',
     // origin: process.env.FRONTEND_URL,
-    origin: "https://trello-style-task-management-application-five.vercel.app/",
+    origin: "https://trello-style-task-management-application-five.vercel.app",
     credentials: true,
   })
 );
