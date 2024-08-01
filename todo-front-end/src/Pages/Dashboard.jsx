@@ -160,7 +160,7 @@ function Dashboard() {
           <div className="h-[65vh] bg-white">
             {/* coulms */}
             <div className="flex bg-white p-4 mt-4 justify-between">
-              {/* <Column
+              <Column
                 title="Todo"
                 cards={cards}
                 // cards={}
@@ -169,7 +169,7 @@ function Dashboard() {
               <Column title="In Progress" cards={cards} />
 
               <Column title="Under Review"  cards={cards} />
-              <Column title="Finished"   cards={cards}/> */}
+              <Column title="Finished"   cards={cards}/>
             </div>
           </div>
         </div>
