@@ -23,10 +23,11 @@ app.use(express.urlencoded({ extended: true }));
 // Third-Party
 app.use(
   cors({
-    // origin: '*',
-    origin: process.env.FRONTEND_URL,
-    // origin: "https://trello-style-task-management-application-five.vercel.app",
-    credentials: true,
+    origin: process.env.FRONTEND_URL, // The URL of your frontend
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Allowed methods
+    allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
+    credentials: true, // Allow credentials (cookies, authorization headers)
+    optionsSuccessStatus: 200, // Some legacy browsers choke on 204
   })
 );
 app.use(morgan('dev'));
