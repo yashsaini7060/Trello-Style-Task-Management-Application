@@ -41,6 +41,8 @@ export const login = createAsyncThunk("auth/login", async (data) => {
 
     // getting response resolved here
     res = await res;
+    console.log("server response")
+    console.log(res);
     return res.data;
   } catch (error) {
     toast.error(error.message);

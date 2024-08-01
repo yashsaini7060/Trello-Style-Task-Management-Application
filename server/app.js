@@ -23,11 +23,17 @@ app.use(express.urlencoded({ extended: true }));
 // Third-Party
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL, // The URL of your frontend
+    origin: `${process.env.FRONTEND_URL}`, // The URL of your frontend
     credentials: true, // Allow credentials (cookies, authorization headers)
+    optionsSuccessStatus: 200, // Some legacy browsers choke on 204
+    Headers: true,
+    exposedHeaders: 'Set-Cookie',
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Allowed methods
-    allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
-    optionsSuccessStatus: 204, // Some legacy browsers choke on 204
+    allowedHeaders: [
+      'Access-Control-Allow-Origin',
+      'Content-Type',
+      'Authorization'
+    ], // Allowed headers
   })
 );
 

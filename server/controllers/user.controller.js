@@ -11,7 +11,6 @@ const cookieOptions = {
   httpOnly: false,
 };
 
-console.log(cookieOptions.domain)
 
 
 
@@ -68,7 +67,6 @@ export const registerUser = asyncHandler(async (req, res, next) => {
     success: true,
     message: 'User registered successfully',
     user,
-    token
   });
 });
 
@@ -108,11 +106,12 @@ export const loginUser = asyncHandler(async (req, res, next) => {
 
   // Setting the token in the cookie with name token along with cookieOptions
   res.cookie('token', token, cookieOptions);
-
+  console.log("token", token)
   // If all good send the response to the frontend
   res.status(200).json({
     success: true,
     message: 'User logged in successfully',
+    token: token,
     user,
   });
 });
