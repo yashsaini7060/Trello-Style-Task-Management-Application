@@ -3,18 +3,12 @@ import AppError from '../utils/appError.js';
 import User from '../models/user.model.js';
 
 const cookieOptions = {
-  expires:new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) ,
-  httpOnly:true,
-  secure:true,
-  sameSite:"none"
+  httpOnly: true,
+  maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+  path: "/",
+  sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+  secure: process.env.NODE_ENV === "production" ? true : false,
 };
-
-// domain: process.env.FRONTEND_URL,
-// path: '/',
-// secure: true,
-// maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-// sameSite: false,
-// httpOnly: false,
 
 
 /**
