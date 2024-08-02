@@ -2,7 +2,7 @@ import axios from "axios";
 
 const BASE_URL =
   import.meta.env.MODE === 'production'
-    ? 'https://vercel.com/yashsaini7060s-projects/trello-task-management-application-backend/24KVDBUCJjLjj1pgyvZ4wG5eexs8/api/v1'
+    ? 'https://trello-task-management-application-backend.vercel.app/api/v1'
     : 'http://localhost:5041/api/v1';
 
 
