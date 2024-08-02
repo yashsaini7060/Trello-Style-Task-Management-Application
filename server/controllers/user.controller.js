@@ -3,11 +3,9 @@ import AppError from '../utils/appError.js';
 import User from '../models/user.model.js';
 
 const cookieOptions = {
-  httpOnly: true,
-  maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-  path: "/",
-  sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
   secure: process.env.NODE_ENV === "production" ? true : false,
+  maxAge: 7 * 24 * 60 * 60 * 1000, //  7 days
+  httpOnly: true,
 };
 
 
@@ -108,8 +106,8 @@ export const loginUser = asyncHandler(async (req, res, next) => {
   res.status(200).json({
     success: true,
     message: 'User logged in successfully',
-    token: token,
     user,
+    token: token,
   });
 });
 
