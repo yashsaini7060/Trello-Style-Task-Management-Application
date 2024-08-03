@@ -4,7 +4,8 @@ import toast from "react-hot-toast";
 import axiosInstance from '../../config/axiosInstance';
 
 const initialState = {
-  taskList: localStorage.getItem("tasks") || []
+  taskList: localStorage.getItem("tasks") || [],
+  draggingTaskId: localStorage.getItem("taskId") || "",
 }
 
 
@@ -46,25 +47,49 @@ export const createTask = createAsyncThunk("/auth/createTask" , async(data) => {
 
 
 
+// Thunk to update task status
+export const updateTaskStatus = createAsyncThunk("/task/updateTaskStatus", async ({ taskId, status }) => {
+  try {
+    const response = axiosInstance.patch(`tasks/${taskId}`, { status });
+    toast.promise(response, {
+      loading: 'Updating task status...',
+      success: (data) => data?.data?.message,
+      error: 'Failed to update task status'
+    });
+    return await response;
+  } catch (error) {
+    toast.error(error?.response?.data?.message);
+  }
+});
+
+
 const taskSlice = createSlice({
   name: "task",
   initialState,
-  reducers: {},
+  reducers: {
+    setDraggingTask: (state, action) => {
+      state.draggingTaskId = action.payload;
+      localStorage.setItem("taskId", action.payload);
+    },
+    dropTask: (state, action) => {
+      const { taskId, newStatus } = action.payload;
+      const task = state.tasks.find(task => task.id === taskId);
+      if (task) {
+        task.status = newStatus;
+      }
+      state.draggingTaskId = null;
+    },
+
+  },
   extraReducers: (builder) => {
     builder
     .addCase(getAllTasks.fulfilled, (state, action) => {
+      console.log(action?.payload?.data?.tasks)
       localStorage.setItem("tasks", JSON.stringify(action?.payload?.data?.tasks));
       state.tasks = action.payload?.payload?.data?.tasks;
     })
-    // .addCase(createTask.fulfilled, (state, action) => {
-    //   console.log(action)
-
-
-    //   localStorage.setItem("tasks", JSON.stringify(action?.payload?.data));
-    //   state.tasks = action.payload;
-    // })
     
   }
 })
-
+export const { setDraggingTask, dropTask } = taskSlice.actions;
 export default taskSlice.reducer;

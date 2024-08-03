@@ -60,16 +60,8 @@ function SignUp() {
       return;
     }
 
-    // // creating the form data from the existing data
-    // const formData = new FormData();
-    // formData.append("fullName", signupData.fullName);
-    // formData.append("email", signupData.email);
-    // formData.append("password", signupData.password);
 
-    // // calling create account action
-    // console.log(formData)
     const res = await dispatch(createAccount(signupData));
-    console.log(res)
     // redirect to login page if true
     if (res.payload.success) navigate("/signin");
 

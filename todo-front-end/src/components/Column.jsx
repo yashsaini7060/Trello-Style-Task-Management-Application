@@ -2,11 +2,10 @@
 
 import List from "../assets/List.png";
 import Card from "./Card";
+import DropArea from "./DropArea";
 
-function Column({ title, cards }) {
-  const filteredCards = cards.filter((c) => c.status === title);
-  console.log(title);
-  console.log(filteredCards);
+function Column({ title, cards}) {
+  
 
   return (
     <div className="flex-col w-[22%] justify-between">
@@ -14,14 +13,18 @@ function Column({ title, cards }) {
         <h3 className="text-[1.2rem] font-semibold">{title}</h3>
         <img src={List} alt="" />
       </div>
-      {filteredCards.map((card) => (
+      <DropArea/>
+      {cards.map((card) => (
+        <>
         <Card
-          key={card.title} // Adding a key prop for list rendering
+          key={card._id}
+          id={card._id}
           title={card.title}
           priority={card.priority}
           deadline={card.deadline}
-          description={card.description}
-        />
+          description={card.description} />
+          <DropArea />
+          </>
       ))}
     </div>
   );

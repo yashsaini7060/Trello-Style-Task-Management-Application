@@ -1,97 +1,35 @@
-// import { motion } from "framer-motion";
-import  { useState } from "react";
-// import { FaFire } from "react-icons/fa";
-// import { FiPlus, FiTrash } from "react-icons/fi";
+import { useEffect,useState } from "react";
+import { useDispatch } from "react-redux";
 
-export const CustomKanban = () => {
+import { getAllTasks } from '../redux/slices/taskSlice';
+import Column from "./Column";
+
+function Board() {
+  const dispatch = useDispatch();
+
+  const [cards, setCards]= useState([]);
+
+    const getTasks= async () => {
+      const res = await dispatch(getAllTasks());
+      setCards(res?.payload?.data?.tasks) 
+    }
+
+    const onDrop = (column, index) => {
+      console.log(column, index)
+    }
+
+  useEffect(() => {
+      getTasks();
+  },[])
+
   return (
-    <div className="h-screen w-full bg-neutral-900 text-neutral-50">
-      <Board />
+    <div className="flex bg-white p-4 mt-4 justify-between">
+    {['Todo', 'In Progress', 'Under Review', 'Finished'].map((status, index) => (
+      <Column key={index} title={status} cards={cards.filter(card => card.status === status)} onDrop={onDrop} />
+    ))}
+      
     </div>
   );
-};
+}
 
-const Board = () => {
-  const [cards, setCards] = useState(DEFAULT_CARDS);
-
-  return (
-    <div className="flex h-full w-full gap-3 overflow-scroll p-12">
-      <Column
-        title="Backlog"
-        column="backlog"
-        headingColor="text-neutral-500"
-        cards={cards}
-        setCards={setCards}
-      />
-      <Column
-        title="TODO"
-        column="todo"
-        headingColor="text-yellow-200"
-        cards={cards}
-        setCards={setCards}
-      />
-      <Column
-        title="In progress"
-        column="doing"
-        headingColor="text-blue-200"
-        cards={cards}
-        setCards={setCards}
-      />
-      <Column
-        title="Complete"
-        column="done"
-        headingColor="text-emerald-200"
-        cards={cards}
-        setCards={setCards}
-      />
-      <BurnBarrel setCards={setCards} />
-    </div>
-  );
-};
-
-
-
-
-
-// const DropIndicator = ({ beforeId, column }) => {
-//   return (
-//     <div
-//       data-before={beforeId || "-1"}
-//       data-column={column}
-//       className="my-0.5 h-0.5 w-full bg-violet-400 opacity-0"
-//     />
-//   );
-// };
-
-
-
-
-const DEFAULT_CARDS = [
-  // BACKLOG
-  { title: "Look into render bug in dashboard", id: "1", column: "backlog" },
-  { title: "SOX compliance checklist", id: "2", column: "backlog" },
-  { title: "[SPIKE] Migrate to Azure", id: "3", column: "backlog" },
-  { title: "Document Notifications service", id: "4", column: "backlog" },
-  // TODO
-  {
-    title: "Research DB options for new microservice",
-    id: "5",
-    column: "todo",
-  },
-  { title: "Postmortem for outage", id: "6", column: "todo" },
-  { title: "Sync with product on Q3 roadmap", id: "7", column: "todo" },
-
-  // DOING
-  {
-    title: "Refactor context providers to use Zustand",
-    id: "8",
-    column: "doing",
-  },
-  { title: "Add logging to daily CRON", id: "9", column: "doing" },
-  // DONE
-  {
-    title: "Set up DD dashboards for Lambda listener",
-    id: "10",
-    column: "done",
-  },
-];
+export default Board;

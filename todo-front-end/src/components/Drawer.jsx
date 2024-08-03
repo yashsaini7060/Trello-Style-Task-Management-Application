@@ -36,7 +36,6 @@ function Drawer({ isOpen, onClose }) {
 
   const handleSubmit = async(e) => {
     e.preventDefault();
-    console.log(formData); // Handle form submission, e.g., send data to server
 
 
     if (
@@ -52,7 +51,6 @@ function Drawer({ isOpen, onClose }) {
 
     // calling create account action
     const res = await dispatch(createTask(formData));
-    console.log(res)
 
     // redirect to home page if true
     if (res.payload.success) navigate("/dashboard");

@@ -56,7 +56,6 @@ function Signin() {
 
     // calling create account action
     const res = await dispatch(login(signInData));
-    console.log(res)
     
     // redirect to home page if true
     if (res.payload.success) navigate("/dashboard");
