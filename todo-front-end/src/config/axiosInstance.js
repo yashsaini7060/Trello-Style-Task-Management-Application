@@ -11,7 +11,7 @@ const axiosInstance = axios.create();
 axiosInstance.defaults.baseURL = BASE_URL;
 // to include credentials such as cookies, authorization headers, or TLS client certificates in cross-site requests by default.
 axiosInstance.defaults.withCredentials = true;
-
+console.log(`bearer ${localStorage.getItem('token')}`)
 // set bearer token
 axiosInstance.defaults.headers.common = {
   Authorization: `bearer ${localStorage.getItem('token')}`,

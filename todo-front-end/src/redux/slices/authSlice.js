@@ -5,7 +5,8 @@ import axiosInstance from '../../config/axiosInstance';
 
 const initialState = {
   isLoggedIn: localStorage.getItem("isLoggedIn") || false,
-  data: localStorage.getItem("data") || {}
+  data: localStorage.getItem("data") || {},
+  token: localStorage.getItem("token") || ""
 }
 
 
@@ -29,8 +30,9 @@ export const createAccount = createAsyncThunk("auth/signup" , async(data) => {
 // function to handle login
 export const login = createAsyncThunk("auth/login", async (data) => {
   try {
+    console.log(data)
     let res = axiosInstance.post("/user/login", data);
-
+    console.log("response", res)
     await toast.promise(res, {
       loading: "Loading...",
       success: (data) => {

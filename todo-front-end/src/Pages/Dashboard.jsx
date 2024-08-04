@@ -24,6 +24,7 @@ function Dashboard() {
             <div className="flex items-centers justify-between">
               <div>
                 <h1 className="text-[3rem] font-bold">Good morning, Yash!</h1>
+
               </div>
               <div className="flex text-center items-center w-[15rem]">
                 <p className="font-semibold">Help & Feedback </p>

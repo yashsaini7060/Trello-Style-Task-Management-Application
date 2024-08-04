@@ -9,7 +9,10 @@ export const isLoggedIn = asyncHandler(async (req, _res, next) => {
   const token =
     (Object.keys(req.cookies).length > 1 && req.cookies.token) ||
     (req.headers.authorization && req.headers["authorization"].split(" ")[1]);
-    
+  console.log("Token : ", token)
+  console.log("Cookies : ", (Object.keys(req.cookies).length > 1 && req.cookies.token))
+  console.log("Headers : ", (req.headers.authorization && req.headers["authorization"].split(" ")[1]))
+
   // If no token send unauthorized message
   if (!token) {
     return next(new AppError("Unauthorized, please login to continue", 401));

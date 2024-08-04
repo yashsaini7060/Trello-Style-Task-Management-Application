@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import axiosInstance from '../../config/axiosInstance';
 
 const initialState = {
-  taskList: localStorage.getItem("tasks") || [],
+  taskList: [],
   draggingTaskId: localStorage.getItem("taskId") || "",
 }
 
@@ -20,7 +20,7 @@ export const getAllTasks = createAsyncThunk("/task/getAllTask", async() => {
       },
       error: 'Failed to fetch your tasks'
     })
-    return await response;
+    return (await response).data.tasks;
   } catch (error) {
     toast.error(error?.response?.data?.message)
   }
@@ -48,9 +48,11 @@ export const createTask = createAsyncThunk("/auth/createTask" , async(data) => {
 
 
 // Thunk to update task status
-export const updateTaskStatus = createAsyncThunk("/task/updateTaskStatus", async ({ taskId, status }) => {
+export const updateTaskStatus = createAsyncThunk("/task/updateTask", async (data) => {
   try {
-    const response = axiosInstance.patch(`tasks/${taskId}`, { status });
+
+    console.log("Data", data)
+    const response = axiosInstance.post(`tasks/${data.taskId}`, data.data);
     toast.promise(response, {
       loading: 'Updating task status...',
       success: (data) => data?.data?.message,
@@ -84,9 +86,10 @@ const taskSlice = createSlice({
   extraReducers: (builder) => {
     builder
     .addCase(getAllTasks.fulfilled, (state, action) => {
-      console.log(action?.payload?.data?.tasks)
-      localStorage.setItem("tasks", JSON.stringify(action?.payload?.data?.tasks));
-      state.tasks = action.payload?.payload?.data?.tasks;
+      console.log(action?.payload)
+      if(action?.payload){
+        state.taskList = [...action.payload]
+      }
     })
     
   }

@@ -1,3 +1,5 @@
+import './App.css'
+
 import { Route,Routes } from "react-router-dom";
 
 import RequireAuth from "./components/Auth/RequireAuth";

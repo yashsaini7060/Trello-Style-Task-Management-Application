@@ -25,8 +25,6 @@ export const getAllTasks = asyncHandler( async (req, res, next) => {
 
 
 export const createTask = asyncHandler( async (req, res, next) => {
-  console.log("here")
-  console.log(req.body)
   const{title, description, status, priority, deadline} = req.body
 
   const userId = req.user.id;
@@ -65,7 +63,6 @@ export const createTask = asyncHandler( async (req, res, next) => {
 export const updateTask = asyncHandler(async (req, res, next) => {
 
   const id = req.params.id;
-
   const task = await Task.findById(id)
 
   if (!task) {

@@ -10,7 +10,10 @@ function Card({id, title, priority,deadline, description}) {
 
   const handleDragStart = (id) => {
     dispatch(setDraggingTask(id));
-    console.log(id)
+  };
+
+  const handleDragEnd = () => {
+    console.log("Drag end")  
   };
 
   //Priority Color
@@ -31,7 +34,7 @@ function Card({id, title, priority,deadline, description}) {
 
 
   return (
-    <div className="flex-col w-full my-4 bg-[#F7F7F7] p-4 rounded-lg cursor-move" draggable="true" onDragStart={ () => handleDragStart(id)} onDragEnd={() => handleDragStart("")}>
+    <div className="flex-col w-full my-4 bg-[#F7F7F7] p-4 rounded-lg cursor-move" draggable="true" onDragStart={ () => handleDragStart(id)} onDragEnd={() => handleDragEnd()}>
       <h3 className="text-[1.2rem] font-semibold">{title}</h3>
       <p className="text-[1rem] mt-3">{description}</p>
       <p className={`text-sm ${getPriorityColor()} w-fit p-1 text-white font-semibold rounded-md mt-2`}>{priority}</p>
